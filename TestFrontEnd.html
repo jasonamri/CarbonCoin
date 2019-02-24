@@ -1,0 +1,65 @@
+<head>
+
+    <title>CarbonCoin Transaction Records</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        
+        function hex2a(hexx) {
+    var hex = hexx.toString();//force conversion
+    var str = '';
+    for (var i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2)
+        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+    return str;
+}
+
+            function onLod () {
+                $.getJSON('https://api-ropsten.etherscan.io/api?module=logs&action=getLogs&fromBlock=379224&toBlock=latest&address=0x3e45974c33B8f2419C2E77430b90594d9CF49FD6&apikey=YOUR_ETHERSCAN_APIKEY', function(data) {
+
+                    //console.log(data.result);
+
+                    for (var i = 0; i < data.result.length; i++) {
+                        var string = "";
+                        var output = data.result[i].data;
+                        //console.log(output)
+                        var type = output.substring(2, 66);
+                        switch (parseInt(type, 16)) {
+                            case 0:
+                            string += "Created CarbonCoin";
+                            var sender = output.substring(514, 578);
+                            
+                            var senderStr = hex2a(sender);
+                            //string += senderStr;
+                            break;
+                            case 1:
+                            string+= "Traded CarbonCoin";
+                            var sender = output.substring(514, 578);
+                            //console.log(sender);
+                            var senderStr = hex2a(sender);
+                            //string += senderStr;
+                            break;
+                            case 2:
+                            string += "Mitigated CarbonCoin";
+                            var sender = output.substring(578, 648);
+                            var senderStr = hex2a(sender);
+                            //string += senderStr;
+                            break;
+                        }
+
+                        
+                        console.log(string);
+                    }
+                });
+            }
+    
+        </script>  
+</head>
+
+<body onload="onLod()">
+
+    
+
+
+  
+     
+
+</body>
