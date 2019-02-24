@@ -15,4 +15,4 @@ All events emit the ID, date, country, description of emmission, and tonnes of C
 
 
  
-Read more on my blog! https://www.jasonamri.com/?p=137
+Read more on my blog! https://www.jasonamri.com/carboncoin/
